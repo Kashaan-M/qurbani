@@ -31,7 +31,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, 'process.env'), overwrite=True)
 SECRET_KEY = env("PROCESS_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if env("DJANGO_DEBUG") else True
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 
 
@@ -94,6 +94,7 @@ if 'DATABASE_URL' in os.environ:
     DATABASES['default'] = dj_database_url.config(
         conn_max_age=500,
         conn_health_checks=True,
+        test_options={'NAME':env('TEST_DB_NAME')}
     )
 
 # Password validation
