@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Qurbani Animals Online. Bakra, Camel, Sheep, Vehra, Goat">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.rtl.min.css'%}">
+    {% block carousel %}{% endblock carousel %}
+    <link rel="stylesheet" href="{% static 'css/styles.css'%}">
+    <title>{% block title %}Qurbani Online - Latest Bhatta Chowk Rawalpindi market information{% endblock title %}</title>
+</head>
+<body class="pt-0" dir="rtl" style="background: hsl(120,0%,93%);">
+    <div class="container-fluid">
+    <div class="row">
+    <nav class="navbar justify-content-center bg-dark">
+        <ul class="navbar-nav flex-row list-unstyled">
+            <li class="nav-item border m-1 p-1"><a href="/"><img src="{% static 'imgs/home.png' %}" alt="Home" width="56" height="56"></a></li>
+            <li class="nav-item border m-1 p-1"><a href="{% url 'animals:bakra-list' %}" class="text-white"><img src="{% static 'imgs/goat.png' %}" alt="Bakra" width="56" height="56" >Bakra</a></li>
+            <li class="nav-item border m-1 p-1"><a href="{% url 'animals:sheep-list' %}" class="text-white"><img src="{% static 'imgs/sheep.png' %}" alt="Sheep" width="64" height="64">Sheep</a></li>
+            <li class="nav-item border m-1 p-1"><a href="{% url 'animals:camel-list' %}" class="text-white"><img src="{% static 'imgs/camel.png' %}" alt="Camel" width="56" height="56">Camel</a></li>
+            <li class="nav-item border m-1 p-1"><a href="{% url 'animals:vehra-list' %}" class="text-white"><img src="{% static 'imgs/cow.png' %}" alt="Vehra" width="56" height="56">Vehra</a></li>
+        </ul>
+    </nav>
+        <main class="container">
+            {% block content %}{% endblock content %}
+        </main>
+    </div>
+    </div>
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script> 
+</body>
+</html>

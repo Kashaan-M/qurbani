@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Qurbani Online - Bakra Breed:{{animal.breed}}
+{% endblock title %}
+
+{% block carousel %}
+<link rel="stylesheet" href="{% static 'bootstrap/css/carousel.rtl.css' %}">
+{% endblock carousel %}
+
+{% block content %}
+<div class="mt-2">
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{animal.photo_1.url}}" alt="" class="img-fluid">
+            </div>
+            {% if animal.photo_2 %}
+            {% include "animals/includes/carousel_photo.html" with url=animal.photo_2.url %}
+            {% endif %}
+            {% if animal.photo_3 %}
+            {% include "animals/includes/carousel_photo.html" with url=animal.photo_3.url %}
+            {% endif %}
+            {% if animal.photo_4 %}
+            {% include "animals/includes/carousel_photo.html" with url=animal.photo_4.url %}
+            {% endif %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">پچھلا</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">اگلا</span>
+        </button>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary my-3 p-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    مالک کا نمبر طلب کریں
+</button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">مالک کا نمبر</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <ol>مالک کا نمبر حاصل کرنے کے لیے: 
+                <li>ہمارے easypaisa accountمیں <span class="badge bg-success p-3 num">50</span> روپے بھیجیں</li>
+                <li>ہمارے نمبر پر whatsapp سے رابطہ کریں اور درج ذیل چیزیں ہمیں بھیجیں
+                  <ol>
+                    <li>Easypaisa کی رسید کی تصویر</li>
+                    <li>link کو copy کریں اور ہمیں بھیجیں</li>
+                  </ol>
+                </li>
+            </ol>
+            <hr/>
+            <div class="alert alert-success">
+                <h4 class="text-success">Easypaisa</h4>
+                <p class="num">0344-0507057</p>
+                <p>Kashan Mehmood</p>
+            </div>
+            <hr/>
+            <div class="alert alert-success">
+              <h4 class="text-success">link پر click کرنے سے copy کریں</h4>
+              <button type="button" id="link" class="btn btn-success">link</button>
+          </div>
+          <hr/>
+            <div class="alert alert-success">
+                <h4 class="text-success">WhatsApp</h4>
+                <p class="num">0344-0507057</p>
+            </div>
+            <hr/>
+                <p class="text-dark kind-info p-2">ہمارا مقصد منڈی میں موجود مال ڈنگر کے بیوپاریوں کی authentic information جمع کر کے شیئر کرنا ہے.</p>
+            <p class="text-dark kind-info p-2">ہم کسی سودے کی ضمانت نہیں لیتے</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بند کریں</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+<div>
+<p>جانور دستیاب ہے؟<span class="badge bg-warning p-2 text-dark">{{animal.get_status_display}}</span></p>
+<hr/>
+<h4>جانور کی تفصیلات</h4>
+<hr/>
+<p>نسل : {{animal.breed}}</p>
+<p>عمر : {{animal.age}} سال</p>
+<p>جنس : {{animal.get_gender_display}}</p>
+<p>منڈی : {{animal.location}}</p>
+<p>قیمت : {{animal.quoted_price|intcomma}} روپے</p>
+<p>دانت : {{animal.teeth}}</p>
+{% if animal.weight != 1 and animal.weight != 0 %}<p>وزن : {{animal.weight}}</p>{% endif %}
+<p>مالک کا نام : {{animal.owner}}</p>
+
+</div>
+
+<script>
+  const link = document.querySelector('button#link')
+  link.addEventListener('click', async function(e) {
+    try {
+      await   navigator.clipboard.writeText(window.location.href);
+      link.textContent = "Copied!"
+    }
+    catch(error) {
+      console.log(error)
+    }
+    finally {
+      console.log(await navigator.clipboard.readText())
+      let myTimer= (setTimeout(function() {
+        link.textContent="link";
+      },2000));
+      myTimer();
+      clearTimeout(myTimer);
+    }
+  })
+</script>
+{% endblock content %}

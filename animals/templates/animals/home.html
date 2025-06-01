@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<h1>نئے جانور</h1>
+<hr/>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for animal in animals %}
+    <div class="col">
+        <div class="card shadow-sm">
+        <img src="{{animal.photo_1.url}}" alt="{{animal.breed}}" class="card-img-top w-100" height="225">
+        <div class="card-body">
+            <p>دستیاب ہے؟ <span class={%if animal.status == 's' %}"badge bg-danger text-white p-2"{% elif animal.status == 'u' %}"badge bg-dark text-white p-2"{% else %}"badge bg-warning text-dark p-2"{% endif %}>{{animal.get_status_display}}</span></p>
+            <p>اندراج : {{animal.create_date}}</p>
+            <p>مالک: {{animal.owner}}</p>
+            <p>نسل: {{animal.breed}}</p>
+            <p>قیمت: {{animal.quoted_price|intcomma}} روپے</p>
+            <a href=
+            {% if animal.category == "b" %}"{% url 'animals:bakra-detail' animal.id %}"
+            {% elif animal.category == "d" %}"{% url 'animals:sheep-detail' animal.id %}"
+            {% elif animal.category == "v" %}"{% url 'animals:vehra-detail' animal.id %}"
+            {% else %}"{% url 'animals:camel-detail' animal.id %}"
+            {% endif %} 
+            class=
+            {% if animal.status == 'a' %}"btn btn-primary"{% else %}"btn disabled"{% endif %}
+            >مزید معلومات</a>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
+
