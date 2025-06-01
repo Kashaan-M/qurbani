@@ -31,7 +31,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, 'process.env'), overwrite=True)
 SECRET_KEY = env("PROCESS_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if env("DJANGO_DEBUG") else True
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['*']
 
 
 
